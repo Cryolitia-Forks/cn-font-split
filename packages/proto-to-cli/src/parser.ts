@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs-extra';
+import fs from 'fs-extra';
 type CommonParser<T> = (value: string, previous: T) => T;
 export const toInt: CommonParser<number> = (value, dummyPrevious) => {
     // parseInt 参数为字符串和进制数
@@ -17,7 +17,7 @@ export const toFloat: CommonParser<number> = (value, dummyPrevious) => {
     return parsedValue;
 };
 export const toFile: CommonParser<Uint8Array> = (value, dummyPrevious) => {
-    return new Uint8Array(readFileSync(value).buffer);
+    return new Uint8Array(fs.readFileSync(value).buffer);
 };
 
 export const HandleRepeated =
