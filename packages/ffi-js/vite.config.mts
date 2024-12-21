@@ -1,6 +1,12 @@
 import { defineConfig } from 'vite';
 import nodeExternals from 'rollup-plugin-node-externals';
 import dts from 'vite-plugin-dts';
+import fs from 'fs-extra';
+
+try {
+    fs.unlinkSync('./src/version');
+} catch (e) {}
+
 export default defineConfig(({ mode }) => {
     return {
         base: '',

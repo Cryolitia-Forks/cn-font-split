@@ -14,7 +14,8 @@ pnpm i cn-font-split
 
 ```sh
 # 首先安装 wasm 版本
-cn-font-split install wasm32-wasip1
+cn-font-split i wasm32-wasip1
+cn-font-split ls
 ```
 
 ```ts
