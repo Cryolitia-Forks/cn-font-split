@@ -67,10 +67,10 @@ const run = new Command("${defaultCommandName}");
     return (
         importHeader +
         params +
-        `\nexport const getCliParams = (argv: string[], extraFn?: (cm: Command) => void) => {
+        `\nexport const getCliParams = (argv: string[], extraFn?: (cm: Command, run: Command) => void) => {
     const program = new Command();
     program.addCommand(run, { isDefault: true });
-    extraFn && extraFn(program);
+    extraFn && extraFn(program, run);
     return program.parse(argv);
 };`
     );
