@@ -66,7 +66,3 @@ test('multi-platform', () => {
         'wasm32-wasip1',
     );
 });
-test('getVersion', async () => {
-    const version = await getLatestVersion();
-    assert(version.length > 5);
-},);

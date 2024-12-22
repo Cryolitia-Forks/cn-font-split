@@ -7,10 +7,11 @@ use cn_font_proto::api_interface::EventMessage;
 use cn_font_utils::u8_size_in_kb;
 use harfbuzz_rs_now::subset::Subset;
 use harfbuzz_rs_now::{Face, Owned};
-use log::info;
+use log::{info, warn};
 use rayon::iter::{
     IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator,
 };
+use std::collections::{BTreeMap, BTreeSet};
 use std::time::Instant;
 use woff::version2::compress;
 
@@ -35,8 +36,10 @@ struct ThreadResult {
 /// 根据预处理结果，生成字体子集文件，通过 callback 返回文件保存数据
 pub fn run_subset(ctx: &mut Context) {
     let origin_bytes: u32 = (&ctx.input.input).len() as u32;
-    let origin_size: u32 =
-        ctx.face.collect_unicodes().len().try_into().unwrap();
+    let all_chars = BTreeSet::from_iter(
+        ctx.face.collect_unicodes().iter().map(|x| x.clone()),
+    );
+    let origin_size: u32 = all_chars.len().try_into().unwrap();
 
     info!("font subset result log");
     let thread_result: Vec<ThreadResult> = ctx
@@ -66,7 +69,7 @@ pub fn run_subset(ctx: &mut Context) {
                     unicodes: r.clone(),
                 },
                 log: SubsetDetail {
-                    id: index as u32,
+                    id: (index as u32) + 1_u32,
                     hash: hash_string.to_string(),
                     chars: r.clone(),
                     bytes: result.len() as u32,
@@ -80,20 +83,37 @@ pub fn run_subset(ctx: &mut Context) {
         })
         .collect::<Vec<ThreadResult>>();
     let mut bundled_bytes: u32 = 0;
-    let mut bundled_size: u32 = 0;
 
+    let mut bundle_chars = BTreeSet::new();
+    bundle_chars.insert(0);
     for res in thread_result {
         (ctx.callback)(res.message);
 
         bundled_bytes += res.log.bytes;
-        bundled_size += res.log.chars.len() as u32;
+        res.log.chars.iter().for_each(|x| {
+            bundle_chars.insert(x.clone());
+        });
         ctx.run_subset_result.push(res.subset_result);
         ctx.reporter.subset_detail.push(res.log);
     }
 
+    // 汇报构建前后的 unicode 差异
+    let diff: Vec<u32> =
+        bundle_chars.difference(&all_chars).map(|x| x.clone()).collect();
+
+    if diff.len() > 0 {
+        warn!(
+            "subsets result diff: {}",
+            diff.iter()
+                .map(|x| x.to_string())
+                .collect::<Vec<String>>()
+                .join(" ")
+        );
+    }
+
     ctx.reporter.bundle_message = Some(BundleMessage {
         origin_size,
-        bundled_size,
+        bundled_size: bundle_chars.len() as u32,
         origin_bytes,
         bundled_bytes,
     })
