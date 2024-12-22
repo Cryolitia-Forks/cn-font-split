@@ -1,11 +1,16 @@
 {
     "name": "cn-font-split",
-    "version": "7.0.0",
-    "description": "",
-    "main": "./dist/node/index.js",
-    "type": "module",
+    "version": "7.0.0-beta.0",
+    "description": "划时代的字体切割工具，CJK与任何字符！支持 otf、ttf、woff2 字体多线程切割，完美地细颗粒度地进行包大小控制。A revolutionary font subetter that supports CJK and any characters! It enables multi-threaded subset of otf, ttf, and woff2 fonts, allowing for precise control over package size.",
+    "main": "./dist/node/index.cjs",
+    "module": "./dist/node/index.js",
+    "browser": "./dist/wasm/index.js",
     "bin": {
-        "cn-font-split": "./dist/cli.js"
+        "cn-font-split": "./dist/cli.cjs"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
     },
     "scripts": {
         "postinstall": "node ./dist/node/init.js || node -v",
@@ -13,9 +18,26 @@
         "build": "pnpm update-proto && vite build",
         "prepublish": "pnpm build"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/KonghaYao/cn-font-split/tree/ts/packages/subsets"
+    },
+    "homepage": "https://chinese-font.netlify.app/",
+    "keywords": [
+        "font",
+        "converter",
+        "performance",
+        "wasm",
+        "woff2",
+        "ttf",
+        "otf",
+        "opentype-fonts",
+        "font-subsetter",
+        "font-subset",
+        "cjk"
+    ],
+    "author": "KonghaYao<dongzhongzhidong@qq.com>",
+    "license": "Apache-2.0",
     "dependencies": {
         "@2060.io/ffi-napi": "^4.0.9",
         "buffer": "^6.0.3",

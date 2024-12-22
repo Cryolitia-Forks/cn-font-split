@@ -129,8 +129,13 @@ export function createWasi(
 
 export class StaticWasm {
     wasmBuffer: Promise<ArrayBuffer>;
-    constructor(public url: string) {
-        this.wasmBuffer = fetch(url).then((res) => res.arrayBuffer());
+    url = '';
+    constructor(url: string | Uint8Array) {
+        if (typeof url === 'string') {
+            this.wasmBuffer = fetch(url).then((res) => res.arrayBuffer());
+        } else {
+            this.wasmBuffer = Promise.resolve(url.buffer as ArrayBuffer);
+        }
     }
     WasiHandle = async (imports: any) => {
         return WebAssembly.instantiate(

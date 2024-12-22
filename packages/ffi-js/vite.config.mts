@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
                     './src/wasm/index.ts',
                     './src/cli.ts',
                 ],
-                formats: ['es'],
+                formats: ['es', 'cjs'],
             },
             minify: true, // 禁用代码混淆
             sourcemap: true,
