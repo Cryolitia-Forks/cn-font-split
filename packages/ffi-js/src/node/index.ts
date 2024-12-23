@@ -3,16 +3,9 @@ import { FontSplitProps } from '../interface.js';
 import { getBinName, matchPlatform } from '../load.js';
 import { isMusl } from './isMusl.js';
 export * from '../interface.js';
-import ffi, {
-    arrayConstructor,
-    createPointer,
-    DataType,
-    funcConstructor,
-    unwrapPointer,
-    open,
-    freePointer,
-    PointerType,
-} from 'ffi-rs';
+// @ts-ignore
+import { dlopen, Callback } from '@xan105/ffi/koffi';
+import koffi from 'koffi';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { createAPI } from '../createAPI.js';
@@ -32,83 +25,25 @@ if (!binPath) {
     );
     // throw new Error('CN_FONT_SPLIT_BIN is undefined!');
 }
+const dylib = dlopen(binPath, {
+    font_split: {
+        parameters: ['pointer', 'usize', 'function'],
+        result: 'void',
+    },
+});
+const createCallback = (cb: (data: Uint8Array) => void) =>
+    new Callback(
+        {
+            parameters: ['pointer', 'usize'],
+            result: 'void',
+        },
+        (ptr: any, length: number) => {
+            const data = koffi.decode(
+                ptr,
+                koffi.array('uint8_t', length, 'Array'),
+            );
+            cb(new Uint8Array(data));
+        },
+    ).pointer;
 
-class FFI {
-    opened = false;
-    open() {
-        if (this.opened) return;
-        this.opened = false;
-        open({
-            library: 'libffi', // key
-            path: binPath!, // path
-        });
-        this.opened = true;
-    }
-    pointers: any[] = [];
-    run(buffer: Uint8Array, length: number, cb: any) {
-        this.open();
-        const main = ffi.load({
-            library: 'libffi',
-            funcName: 'font_split',
-            retType: DataType.Void,
-            paramsType: [
-                arrayConstructor({
-                    type: DataType.U8Array,
-                    length,
-                }),
-                DataType.U64,
-                DataType.External,
-            ],
-            paramsValue: [buffer, length, unwrapPointer(cb)[0]],
-        });
-        this.pointers.push(cb);
-    }
-    finally() {
-        for (const element of this.pointers) {
-            freePointer({
-                paramsType: [
-                    funcConstructor({
-                        paramsType: [
-                            arrayConstructor({
-                                type: DataType.U8Array,
-                                length: 1024 * 1024,
-                            }),
-                            DataType.U64,
-                        ],
-                        retType: DataType.Void,
-                    }),
-                ],
-                pointerType: PointerType.RsPointer,
-                paramsValue: element,
-            });
-        }
-        this.pointers = [];
-    }
-}
-
-function createCallback(cb: (res: Uint8Array) => void): any {
-    const func = (buffer: Uint8Array, length: number) => {
-        cb(buffer.slice(0, length));
-    };
-    return createPointer({
-        paramsType: [
-            funcConstructor({
-                paramsType: [
-                    arrayConstructor({
-                        type: DataType.U8Array,
-                        length: 1024 * 1024,
-                    }),
-                    DataType.U64,
-                ],
-                retType: DataType.Void,
-            }),
-        ],
-        paramsValue: [func],
-    });
-}
-const binding = new FFI();
-export const fontSplit = createAPI(
-    binding.run.bind(binding),
-    createCallback,
-    binding.finally.bind(binding),
-);
+export const fontSplit = createAPI(dylib.symbols.font_split, createCallback);

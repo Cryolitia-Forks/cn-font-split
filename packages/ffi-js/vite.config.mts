@@ -15,7 +15,11 @@ export default defineConfig(({ mode }) => {
                 nodeExternals({
                     builtinsPrefix: 'ignore',
                     include: ['bun:ffi'],
-                    exclude: ['memfs-browser', '@tybys/wasm-util'],
+                    exclude: [
+                        'memfs-browser',
+                        '@xan105/ffi/koffi',
+                        '@tybys/wasm-util',
+                    ],
                 }),
             dts({
                 include: ['src/**/*', '../ffi/gen/index.ts'],
@@ -50,8 +54,8 @@ export default defineConfig(({ mode }) => {
                 ],
                 formats: ['es', 'cjs'],
             },
-            minify: true, // 禁用代码混淆
-            sourcemap: true,
+            minify: false, // 禁用代码混淆
+            sourcemap: false,
             assetsDir: '',
             assetsInlineLimit: 0,
             rollupOptions: {

@@ -1,6 +1,6 @@
 {
     "name": "proto-to-cli",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "main": "./dist/cli.js",
     "module": "./dist/cli.mjs",
     "description": "A tool to convert Protocol Buffers files to command line interfaces.",
@@ -12,7 +12,7 @@
         "access": "public"
     },
     "scripts": {
-        "prepublish": "tsc"
+        "prepublish": "pnpm vite build"
     },
     "keywords": [
         "protobuf",
