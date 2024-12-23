@@ -7,6 +7,7 @@ export const createAPI = <
 >(
     font_split: (buffer: Uint8Array, length: number, cb: OriginCB) => void,
     createCallback: (cb: (data: Uint8Array) => void) => OriginCB,
+    finallyFn?: () => void,
 ) => {
     return async function fontSplit(config: FontSplitProps) {
         if (typeof config.input === 'string') {
@@ -36,6 +37,7 @@ export const createAPI = <
             font_split(buf as any, buf.length, createCallback(appCallback));
         }).finally(() => {
             console.log('构建完成');
+            finallyFn?.();
         });
     };
 };
