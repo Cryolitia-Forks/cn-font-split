@@ -91,7 +91,12 @@ function createLs() {
 function getInstalled() {
     const files = fs.readdirSync(new URL('./', import.meta.url));
     const bins = files.filter((i) => i.startsWith('libffi'));
-    const v = fs.readFileSync(new URL('./version', import.meta.url), 'utf-8');
+    let v = '';
+    try {
+        fs.readFileSync(new URL('./version', import.meta.url), 'utf-8');
+    } catch (e) {
+        // 不做任何事情
+    }
     const versionMap = v
         .split('\n')
         .map((i) => i.split('@') as [string, string]);
