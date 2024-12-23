@@ -33,7 +33,7 @@ const isBinaryExists = (version: string, fileName: string) => {
                 fileName.replace('libffi-', '').split('.')[0] + '@' + version,
             );
     } catch (e) {
-        console.log(e);
+        // console.log(e.message);
     }
     return isExists && fs.existsSync(fileURLToPath(filePath));
 };
