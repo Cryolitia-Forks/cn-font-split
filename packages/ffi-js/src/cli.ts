@@ -53,7 +53,7 @@ function createLs() {
                 '\nInstalled Binary: \n' +
                     getInstalled()
                         .map((i) => ' ✅' + i)
-                        .join('\n'),
+                        .join('\n') || '  None | cn-font-split i default',
             );
             console.table(
                 releases

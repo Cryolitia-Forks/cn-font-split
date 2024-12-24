@@ -46,4 +46,4 @@ const createCallback = (cb: (data: Uint8Array) => void) =>
         },
     ).pointer;
 
-export const fontSplit = createAPI(dylib.symbols.font_split, createCallback);
+export const fontSplit = createAPI(dylib.font_split, createCallback);
