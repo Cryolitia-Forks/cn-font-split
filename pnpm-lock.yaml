@@ -88,21 +88,12 @@ importers:
 
   packages/ffi-js:
     dependencies:
-      '@2060.io/ffi-napi':
-        specifier: ^4.0.9
-        version: 4.0.9
-      '@xan105/ffi':
-        specifier: ^1.3.0
-        version: 1.3.0(koffi@2.10.0)
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
       commander:
         specifier: ^12.1.0
         version: 12.1.0
-      ffi-rs:
-        specifier: ^1.2.0
-        version: 1.2.0
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
@@ -113,8 +104,8 @@ importers:
         specifier: ^2.10.0
         version: 2.10.0
       proto-to-cli:
-        specifier: 'workspace:'
-        version: link:../proto-to-cli
+        specifier: 1.1.2
+        version: 1.1.2
     devDependencies:
       '@grpc/grpc-js':
         specifier: ^1.12.2
@@ -125,6 +116,9 @@ importers:
       '@types/google-protobuf':
         specifier: ^3.15.12
         version: 3.15.12
+      '@xan105/ffi':
+        specifier: ^1.3.0
+        version: 1.3.0(koffi@2.10.0)
       base64-js:
         specifier: ^1.5.1
         version: 1.5.1
@@ -348,14 +342,6 @@ importers:
         version: 5.4.10(@types/node@22.8.2)(terser@5.31.0)
 
 packages:
-
-  '@2060.io/ffi-napi@4.0.9':
-    resolution: {integrity: sha512-JfVREbtkJhMXSUpya3JCzDumdjeZDCKv4PemiWK+pts5CYgdoMidxeySVlFeF5pHqbBpox4I0Be7sDwAq4N0VQ==}
-    engines: {node: '>=18'}
-
-  '@2060.io/ref-napi@3.0.6':
-    resolution: {integrity: sha512-8VAIXLdKL85E85jRYpPcZqATBL6fGnC/XjBGNeSgRSMJtrAMSmfRksqIq5AmuZkA2eeJXMWCiN6UQOUdozcymg==}
-    engines: {node: '>= 18.0'}
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -1714,70 +1700,6 @@ packages:
     resolution: {integrity: sha512-FKgDE2tSyJwvf+zIeAsN/f8l94CYhhu5LtkLhv/gYX1i5DnfGdCys0N+mxxTb1qMhWPw+ekHGcwflv0x8ATPJQ==}
     engines: {node: '>=16.0.0'}
 
-  '@yuuang/ffi-rs-darwin-arm64@1.2.0':
-    resolution: {integrity: sha512-7ne4fsi+mXloeQCq6u5VVA9qHniRTDGNFuCBiDw11OSH8G8lTY+poMJ0rm1JQz2/I+gWHLIdEUHTlq4z3Rmw2A==}
-    engines: {node: '>= 12'}
-    cpu: [arm64]
-    os: [darwin]
-
-  '@yuuang/ffi-rs-darwin-x64@1.2.0':
-    resolution: {integrity: sha512-7OeePWbRt4+ql9rQ7GF7JfxqH2kYEdrDwNwDkiE7KhQDVwgnEyRzH8P3sgXPSC6wqpmEZH0B4/2X9duPdgg8Lg==}
-    engines: {node: '>= 12'}
-    cpu: [x64]
-    os: [darwin]
-
-  '@yuuang/ffi-rs-linux-arm-gnueabihf@1.2.0':
-    resolution: {integrity: sha512-i6xwSbo6ZWnzzmTqCO/ONh5fxRj3odsiF/Jj4tJe899JJLe2bg9zI8THxZRrGvfN5GKfQTDCA0F8JVzkfaRC/g==}
-    engines: {node: '>= 12'}
-    cpu: [arm]
-    os: [linux]
-
-  '@yuuang/ffi-rs-linux-arm64-gnu@1.2.0':
-    resolution: {integrity: sha512-pFCWSLgyH9r1WRtIUICaq/5mknpcNUvv0RNhoZPzMcaPP0W59skqQH1c3za3lfOfQ6YcemFrIUV9Mz+6SxdIUw==}
-    engines: {node: '>= 12'}
-    cpu: [arm64]
-    os: [linux]
-    libc: [glibc]
-
-  '@yuuang/ffi-rs-linux-arm64-musl@1.2.0':
-    resolution: {integrity: sha512-S+/o9v1ynjq7ObDbz1UNByVGSIGDrtXO1iodkoZIE1vStnD9o71qjfnAOmwFpEn+J75conHqVZtKJIYVuXuDYA==}
-    engines: {node: '>= 12'}
-    cpu: [arm64]
-    os: [linux]
-    libc: [musl]
-
-  '@yuuang/ffi-rs-linux-x64-gnu@1.2.0':
-    resolution: {integrity: sha512-0SqSFL3Sj7EqMkPkm80RP3JB47vwrC8R4JE67FgilgRF/p4uSMc3y75Yz73M2kWRcH7+/51tjJ3DqAJTJ1blLQ==}
-    engines: {node: '>= 12'}
-    cpu: [x64]
-    os: [linux]
-    libc: [glibc]
-
-  '@yuuang/ffi-rs-linux-x64-musl@1.2.0':
-    resolution: {integrity: sha512-D6x9bHEvc2MgJR0Far2A0skeCodGWOL+3FGLm4MPmSuCKXd5AaYfQAcXLOJL7RlP5lG/olQEsBc8G/zv76K9vw==}
-    engines: {node: '>= 12'}
-    cpu: [x64]
-    os: [linux]
-    libc: [glibc]
-
-  '@yuuang/ffi-rs-win32-arm64-msvc@1.2.0':
-    resolution: {integrity: sha512-1tgxhrTsZxn0stGsBmKKa+Mecs0RwHqaqbLAlInNEek9C6DprlvQecNnTWveVEcrfP+LJBJKYSJUpkYfq/XEPg==}
-    engines: {node: '>= 12'}
-    cpu: [arm64]
-    os: [win32]
-
-  '@yuuang/ffi-rs-win32-ia32-msvc@1.2.0':
-    resolution: {integrity: sha512-jkSofoSm+0jzs8k5ea2KbLgOUc3ABugUIPlU85zRVn20O2wko+uESM6MsffEoUosb5gfpBItGJV0CFv5diRcbw==}
-    engines: {node: '>= 12'}
-    cpu: [x64, ia32]
-    os: [win32]
-
-  '@yuuang/ffi-rs-win32-x64-msvc@1.2.0':
-    resolution: {integrity: sha512-ra2Z1vOv4lSaGy1IDtwo7X734TeYKiSm0HZR6AhqG4AqiM6abodwlISWOK2mdRwMGVU2QZ4X2OnxJnEU0rKejw==}
-    engines: {node: '>= 12'}
-    cpu: [x64]
-    os: [win32]
-
   acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
@@ -2004,14 +1926,6 @@ packages:
   de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
 
-  debug@3.2.7:
-    resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-
   debug@4.3.7:
     resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
     engines: {node: '>=6.0'}
@@ -2103,9 +2017,6 @@ packages:
   fastq@1.17.1:
     resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
 
-  ffi-rs@1.2.0:
-    resolution: {integrity: sha512-+ZHgddCYd3r5NvloCFOw80yhNc3I7dMBeAGX70h9RAAu6/oY+gTfSf56PCM4WhtSDRsTQRmjngr2zggvjpz3tA==}
-
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
@@ -2169,12 +2080,6 @@ packages:
   get-stream@8.0.1:
     resolution: {integrity: sha512-VaUJspBffn/LMCJVoMvSAdmscJyS1auj5Zulnn5UoYcY531UWmdwhRWkcGKnGU93m5HSXP9LP2usOryrBtQowA==}
     engines: {node: '>=16'}
-
-  get-symbol-from-current-process-h@1.0.2:
-    resolution: {integrity: sha512-syloC6fsCt62ELLrr1VKBM1ggOpMdetX9hTrdW77UQdcApPHLmf7CI7OKcN1c9kYuNxKcDe4iJ4FY9sX3aw2xw==}
-
-  get-uv-event-loop-napi-h@1.0.6:
-    resolution: {integrity: sha512-t5c9VNR84nRoF+eLiz6wFrEp1SE2Acg0wS+Ysa2zF0eROes+LzOfuTaVHxGy8AbS8rq7FHEJzjnCZo1BupwdJg==}
 
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
@@ -2507,9 +2412,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  node-addon-api@3.2.1:
-    resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
-
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
@@ -2528,10 +2430,6 @@ packages:
   node-forge@1.3.1:
     resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==}
     engines: {node: '>= 6.13.0'}
-
-  node-gyp-build@4.8.4:
-    resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
-    hasBin: true
 
   node-releases@2.0.18:
     resolution: {integrity: sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==}
@@ -2650,6 +2548,10 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
+  proto-to-cli@1.1.2:
+    resolution: {integrity: sha512-6A5Ux55hQpcJ+dd9FAce7U8m5Ywbx9ihCAtAV1ayCp75RrlkSOoDUJVASBJdzRCrx076SE/YBE/1sN/giLb8rg==}
+    hasBin: true
+
   protobufjs@7.4.0:
     resolution: {integrity: sha512-mRUWCc3KUU4w1jU8sGxICXH/gNS94DvI1gxqDvBzhj1JpcsimQkYiOJfwsPUykUI5ZaspFbSgmBLER8IrQ3tqw==}
     engines: {node: '>=12.0.0'}
@@ -2685,9 +2587,6 @@ packages:
   redis-parser@3.0.0:
     resolution: {integrity: sha512-DJnGAeenTdpMEH6uAJRK/uiyEIH9WVsUmoLwzudwGJUwZPp80PDBWPHXSAGNPwNvIXAbe7MSUB1zQFugFml66A==}
     engines: {node: '>=4'}
-
-  ref-struct-di@1.1.1:
-    resolution: {integrity: sha512-2Xyn/0Qgz89VT+++WP0sTosdm9oeowLP23wRJYhG4BFdMUrLj3jhwHZNEytYNYgtPKLNTP3KJX4HEgBvM1/Y2g==}
 
   regexp-tree@0.1.27:
     resolution: {integrity: sha512-iETxpjK6YoRWJG5o6hXLwvjYAoW+FEZn9os0PD/b6AP6xQwsa/Y7lCVgIixBbUPMfhu+i2LtdeAqVTgGlQarfA==}
@@ -3186,26 +3085,6 @@ packages:
     engines: {node: '>=12'}
 
 snapshots:
-
-  '@2060.io/ffi-napi@4.0.9':
-    dependencies:
-      '@2060.io/ref-napi': 3.0.6
-      debug: 4.3.7
-      get-uv-event-loop-napi-h: 1.0.6
-      node-addon-api: 3.2.1
-      node-gyp-build: 4.8.4
-      ref-struct-di: 1.1.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@2060.io/ref-napi@3.0.6':
-    dependencies:
-      debug: 4.3.7
-      get-symbol-from-current-process-h: 1.0.2
-      node-addon-api: 3.2.1
-      node-gyp-build: 4.8.4
-    transitivePeerDependencies:
-      - supports-color
 
   '@ampproject/remapping@2.3.0':
     dependencies:
@@ -4969,36 +4848,6 @@ snapshots:
     dependencies:
       '@xan105/error': 1.7.1
 
-  '@yuuang/ffi-rs-darwin-arm64@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-darwin-x64@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-linux-arm-gnueabihf@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-linux-arm64-gnu@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-linux-arm64-musl@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-linux-x64-gnu@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-linux-x64-musl@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-win32-arm64-msvc@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-win32-ia32-msvc@1.2.0':
-    optional: true
-
-  '@yuuang/ffi-rs-win32-x64-msvc@1.2.0':
-    optional: true
-
   acorn@8.11.3: {}
 
   acorn@8.14.0: {}
@@ -5225,10 +5074,6 @@ snapshots:
 
   de-indent@1.0.2: {}
 
-  debug@3.2.7:
-    dependencies:
-      ms: 2.1.3
-
   debug@4.3.7:
     dependencies:
       ms: 2.1.3
@@ -5326,19 +5171,6 @@ snapshots:
     dependencies:
       reusify: 1.0.4
 
-  ffi-rs@1.2.0:
-    optionalDependencies:
-      '@yuuang/ffi-rs-darwin-arm64': 1.2.0
-      '@yuuang/ffi-rs-darwin-x64': 1.2.0
-      '@yuuang/ffi-rs-linux-arm-gnueabihf': 1.2.0
-      '@yuuang/ffi-rs-linux-arm64-gnu': 1.2.0
-      '@yuuang/ffi-rs-linux-arm64-musl': 1.2.0
-      '@yuuang/ffi-rs-linux-x64-gnu': 1.2.0
-      '@yuuang/ffi-rs-linux-x64-musl': 1.2.0
-      '@yuuang/ffi-rs-win32-arm64-msvc': 1.2.0
-      '@yuuang/ffi-rs-win32-ia32-msvc': 1.2.0
-      '@yuuang/ffi-rs-win32-x64-msvc': 1.2.0
-
   fill-range@7.1.1:
     dependencies:
       to-regex-range: 5.0.1
@@ -5415,12 +5247,6 @@ snapshots:
   get-port-please@3.1.2: {}
 
   get-stream@8.0.1: {}
-
-  get-symbol-from-current-process-h@1.0.2: {}
-
-  get-uv-event-loop-napi-h@1.0.6:
-    dependencies:
-      get-symbol-from-current-process-h: 1.0.2
 
   glob-parent@5.1.2:
     dependencies:
@@ -5765,8 +5591,6 @@ snapshots:
 
   nanoid@3.3.7: {}
 
-  node-addon-api@3.2.1: {}
-
   node-addon-api@7.1.1: {}
 
   node-fetch-native@1.6.4: {}
@@ -5776,8 +5600,6 @@ snapshots:
       whatwg-url: 5.0.0
 
   node-forge@1.3.1: {}
-
-  node-gyp-build@4.8.4: {}
 
   node-releases@2.0.18: {}
 
@@ -5874,6 +5696,12 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
+  proto-to-cli@1.1.2:
+    dependencies:
+      commander: 12.1.0
+      fs-extra: 11.2.0
+      protobufjs: 7.4.0
+
   protobufjs@7.4.0:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
@@ -5924,12 +5752,6 @@ snapshots:
     dependencies:
       redis-errors: 1.2.0
     optional: true
-
-  ref-struct-di@1.1.1:
-    dependencies:
-      debug: 3.2.7
-    transitivePeerDependencies:
-      - supports-color
 
   regexp-tree@0.1.27: {}
 

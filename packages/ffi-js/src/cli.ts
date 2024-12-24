@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import { getCliParams } from './gen/proto.js';
 import { getAllVersions, getVersionBinary, matchPlatform } from './load.js';
