@@ -1,6 +1,7 @@
 use crate::expand_ranges;
 use lazy_static::lazy_static;
 
+// u8array 按照 u32 的方式读取
 pub fn u8_to_u32(arr: &[u8]) -> Vec<u32> {
     assert!(arr.len() % 4 == 0, "File length is not a multiple of 4");
 
@@ -10,6 +11,7 @@ pub fn u8_to_u32(arr: &[u8]) -> Vec<u32> {
         })
         .collect()
 }
+// u8array 按照 u16 的方式读取
 pub fn u8_to_u16(arr: &[u8]) -> Vec<u16> {
     assert!(arr.len() % 2 == 0, "File length is not a multiple of 2");
     arr.chunks(2)
@@ -58,7 +60,7 @@ lazy_static! {
     pub static ref ZH_COMMON: Vec<u32> = get_part_from_cn_pkg(0).unwrap();
     pub static ref ZH_SC: Vec<u32> = get_part_from_cn_pkg(1).unwrap();
     pub static ref ZH_TC: Vec<u32> = get_part_from_cn_pkg(2).unwrap();
-    pub static ref HANGUL_SYL: Vec<u32> = u8_to_u32(HANGUL_SYL_SOURCE);
+    pub static ref HANGUL_SYL: Vec<u32> = u8_to_u16(HANGUL_SYL_SOURCE).into_iter().map(|x| x as u32).collect();
     pub static ref HIRAGANA_AND_KATAKANA: Vec<u32> =
         expand_ranges(&[(0x3040, 0x309F), (0x30A0, 0x30FF)]);
     pub static ref HANGUL_JAMO: Vec<u32> = expand_ranges(&[(0x1100, 0x11FF)]);
@@ -73,5 +75,6 @@ mod tests {
         assert_eq!(ZH_COMMON.len(), 4329);
         assert_eq!(ZH_SC.len(), 2508);
         assert_eq!(ZH_TC.len(), 2481);
+        assert_eq!(HANGUL_SYL.len(), 2026);
     }
 }

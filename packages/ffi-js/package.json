@@ -44,7 +44,7 @@
         "fs-extra": "^11.2.0",
         "google-protobuf": "^3.21.4",
         "koffi": "^2.10.0",
-        "proto-to-cli": "workspace:"
+        "proto-to-cli": "1.1.2"
     },
     "devDependencies": {
         "@xan105/ffi": "^1.3.0",

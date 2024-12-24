@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import { getCliParams } from './gen/proto.js';
 import { getAllVersions, getVersionBinary, matchPlatform } from './load.js';
@@ -52,7 +53,7 @@ function createLs() {
                 '\nInstalled Binary: \n' +
                     getInstalled()
                         .map((i) => ' ✅' + i)
-                        .join('\n'),
+                        .join('\n') || '  None | cn-font-split i default',
             );
             console.table(
                 releases
