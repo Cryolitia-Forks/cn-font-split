@@ -104,8 +104,8 @@ importers:
         specifier: ^2.10.0
         version: 2.10.0
       proto-to-cli:
-        specifier: 1.1.2
-        version: 1.1.2
+        specifier: 1.1.4
+        version: 1.1.4
     devDependencies:
       '@grpc/grpc-js':
         specifier: ^1.12.2
@@ -2548,8 +2548,8 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
-  proto-to-cli@1.1.2:
-    resolution: {integrity: sha512-6A5Ux55hQpcJ+dd9FAce7U8m5Ywbx9ihCAtAV1ayCp75RrlkSOoDUJVASBJdzRCrx076SE/YBE/1sN/giLb8rg==}
+  proto-to-cli@1.1.4:
+    resolution: {integrity: sha512-UT9eBi8+OJvpAItYH2kPofpDb5uH/Yr7h/Al2Kt9XR9sdmmorqLj3h2++ITDnD9rUhhOPDALHhT4uMQqpfWf8Q==}
     hasBin: true
 
   protobufjs@7.4.0:
@@ -5696,7 +5696,7 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
-  proto-to-cli@1.1.2:
+  proto-to-cli@1.1.4:
     dependencies:
       commander: 12.1.0
       fs-extra: 11.2.0

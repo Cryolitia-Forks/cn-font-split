@@ -15,15 +15,21 @@ getCliParams(process.argv, (program, run) => {
         }
         await fontSplit(data);
     });
-    program.addCommand(createLs()).addCommand(createInstall());
+    program
+        .usage(
+            '\ncn-font-split -i <字体地址> -o <文件夹地址>\ncn-font-split run -h # 查看更详细信息',
+        )
+        .description('')
+        .addCommand(createLs())
+        .addCommand(createInstall());
 });
 
 function createInstall() {
-    return new Command('install')
-        .description('install binary deps')
+    return new Command('i')
+        .description('安装指定源 wasm32-wasip1@版本号')
         .arguments('target')
-        .alias('i')
-        .option('-f, --force', 'force fetch binary from source')
+        .alias('install')
+        .option('-f, --force', '强制下载源')
         .action(async (target, data: { force?: boolean }) => {
             let [platform, version] = target.split('@');
             if (platform === 'default')
@@ -40,7 +46,7 @@ function createInstall() {
 
 function createLs() {
     return new Command('ls')
-        .description('list all info from local and source')
+        .description('列出本地和远程信息')
         .action(async (data) => {
             const releases = await getAllVersions();
             const platformStr = matchPlatform(
@@ -53,7 +59,7 @@ function createLs() {
                 '\nInstalled Binary: \n' +
                     getInstalled()
                         .map((i) => ' ✅' + i)
-                        .join('\n') || '  None | cn-font-split i default',
+                        .join('\n') || '  无 | 请使用 cn-font-split i default',
             );
             console.table(
                 releases
@@ -94,7 +100,7 @@ function getInstalled() {
     const bins = files.filter((i) => i.startsWith('libffi'));
     let v = '';
     try {
-        fs.readFileSync(new URL('./version', import.meta.url), 'utf-8');
+        v = fs.readFileSync(new URL('./version', import.meta.url), 'utf-8');
     } catch (e) {
         // 不做任何事情
     }

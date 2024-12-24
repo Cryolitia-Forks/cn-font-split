@@ -18,10 +18,10 @@ export default defineConfig(({ mode }) => {
         build: {
             target: 'esnext',
             lib: {
-                entry: ['./src/cli.ts','./src/parser.ts'],
+                entry: ['./src/cli.ts', './src/parser.ts'],
                 formats: ['es', 'cjs'],
             },
-            minify: true, // 禁用代码混淆
+            minify: false, // 禁用代码混淆
             sourcemap: true,
             assetsDir: '',
             assetsInlineLimit: 0,

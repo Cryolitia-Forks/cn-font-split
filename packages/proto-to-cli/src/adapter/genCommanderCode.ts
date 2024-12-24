@@ -1,6 +1,6 @@
 import protobuf from 'protobufjs';
 import fs from 'fs';
-import { Adapter } from '../cli';
+import { Adapter } from '../cli.js';
 
 /**
  * @zh 生成 commander 参数定义
@@ -25,6 +25,7 @@ import { Command } from 'commander';
 const run = new Command("${defaultCommandName}");
 `;
 
+    const shortCode = new Set();
     const params = `run` + createFlatDefine(fields).join('\n    ');
 
     function createFlatDefine(fields: any, parentKey = ''): string[] {
@@ -55,12 +56,18 @@ const run = new Command("${defaultCommandName}");
                 parser = `HandleRepeated(${parser})`;
                 isOption = true;
             }
+            const longName = parentKey + key;
+            let mayShortName = '';
+            if (!parentKey && !shortCode.has(longName[0])) {
+                mayShortName = '-' + longName[0] + ',';
+                shortCode.add(longName[0]);
+            }
             return [
-                `.${isOption ? 'option' : 'requiredOption'}('--${
-                    parentKey + key
-                }${placeholder}',"${comment}"${parser ? ',' + parser : ''}${
-                    defaultValue ? ',' + defaultValue : ''
-                })`,
+                `.${
+                    isOption ? 'option' : 'requiredOption'
+                }('${mayShortName}--${longName}${placeholder}',"${comment}"${
+                    parser ? ',' + parser : ''
+                }${defaultValue ? ',' + defaultValue : ''})`,
             ];
         });
     }
