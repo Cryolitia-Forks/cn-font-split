@@ -41,7 +41,7 @@ pub fn font_split<F: Fn(EventMessage)>(config: InputTemplate, callback: F) {
         fvar_table: None,
     };
 
-    ctx.reporter.version = "7.0.0".to_string();
+    ctx.reporter.version = env!("CARGO_PKG_VERSION").to_string();
     ctx.reporter.platform = current_platform::CURRENT_PLATFORM.to_string();
 
     info!(
