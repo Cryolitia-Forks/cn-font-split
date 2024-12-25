@@ -1,3 +1,4 @@
+use log::error;
 use opentype::layout::{context, ChainedContext, Coverage};
 use opentype::tables::glyph_substitution::Type;
 use opentype::tables::GlyphSubstitution;
@@ -7,8 +8,15 @@ pub fn analyze_gsub(
     font: &Font,
     font_file: &mut Cursor<&Vec<u8>>,
 ) -> Vec<Vec<u16>> {
+    let temp: Result<Option<GlyphSubstitution>, std::io::Error> =
+    font.take(font_file);
+    // 国标宋体，解析就报错，所以干脆先不解析
+    if temp.is_err() {
+        error!("{}", temp.unwrap_err());
+        return vec![vec![]];
+    }
     // GSUB
-    let data: GlyphSubstitution = font.take(font_file).unwrap().unwrap();
+    let data: GlyphSubstitution = temp.unwrap().unwrap();
 
     // let mut feature_tags: Vec<&str> = data
     //     .features
@@ -175,24 +183,23 @@ pub fn analyze_gsub(
                                 }
                                 ChainedContext::Format3(ctx) => {
                                     // println!("??? {:?}\n", context);
-                                    // BUG 不知为何有这种规则导致匹配贼多
+                                    // ! BUG 不知为何有这种规则导致匹配贼多
                                     // coverages 是触发的glyph
                                     // forward_coverages 和 backward_coverages 是左右匹配的 glyph
                                     // 反正所有的字形都是相关的，合并到一块
                                     let mut result: Vec<u16> = vec![];
-                                    collect_glyph_id_from_format_1_and_2(
-                                        &ctx.coverages,
-                                        &mut result,
-                                    );
-                                    collect_glyph_id_from_format_1_and_2(
-                                        &ctx.forward_coverages,
-                                        &mut result,
-                                    );
-                                    collect_glyph_id_from_format_1_and_2(
-                                        &ctx.backward_coverages,
-                                        &mut result,
-                                    );
-                                    // vec![result]
+                                    // collect_glyph_id_from_format_1_and_2(
+                                    //     &ctx.coverages,
+                                    //     &mut result,
+                                    // );
+                                    // collect_glyph_id_from_format_1_and_2(
+                                    //     &ctx.forward_coverages,
+                                    //     &mut result,
+                                    // );
+                                    // collect_glyph_id_from_format_1_and_2(
+                                    //     &ctx.backward_coverages,
+                                    //     &mut result,
+                                    // );
                                     // println!("||| {:?}\n", result);
                                     vec![result]
                                 }
@@ -238,9 +245,10 @@ pub fn analyze_gsub(
 #[test]
 fn test_gsub() {
     use cn_font_utils::read_binary_file;
-    let font_file =
-        read_binary_file("./packages/demo/public/WorkSans-VariableFont_wght.ttf")
-            .unwrap();
+    let font_file = read_binary_file(
+        "./packages/demo/public/WorkSans-VariableFont_wght.ttf",
+    )
+    .unwrap();
     let mut font_file = Cursor::new(&font_file);
     let font = Font::read(&mut font_file).unwrap();
     let result = analyze_gsub(&font, &mut font_file);

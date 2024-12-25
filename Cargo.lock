@@ -1815,9 +1815,9 @@ dependencies = [
 
 [[package]]
 name = "opentype"
-version = "0.38.0"
+version = "0.38.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9bce8df14c3005bfe49506ffb80ae66834bf8934dfe093403c80dc8fd0c5ed12"
+checksum = "9df2c4b412143af57fa9af3471005736ebbc394eef8b4313efbd4e4fb91449e0"
 dependencies = [
  "postscript",
  "truetype",
@@ -1944,9 +1944,9 @@ checksum = "953ec861398dccce10c670dfeaf3ec4911ca479e9c02154b3a215178c5f566f2"
 
 [[package]]
 name = "postscript"
-version = "0.18.2"
+version = "0.18.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27c785c1690e0ecea8a0cb117f121404ef455bdb0d76e7c41ea298b8961090e5"
+checksum = "d15e3f42ca0dc59d2bb33ea8f16b8939e78b459282faa1286a9932fedb939e61"
 dependencies = [
  "typeface",
 ]
@@ -2948,9 +2948,9 @@ checksum = "343e926fc669bc8cde4fa3129ab681c63671bae288b1f1081ceee6d9d37904fc"
 
 [[package]]
 name = "truetype"
-version = "0.47.6"
+version = "0.47.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0fb887b8a8ee8832e5810114ad4ef84d89f0aae569d198baee7fb7f7363a4ca4"
+checksum = "6d9ffbd4cf26797938aa36b2d03ec051800e6886fbed4bf70333d96b230a575d"
 dependencies = [
  "typeface",
 ]
@@ -2963,9 +2963,9 @@ checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
 
 [[package]]
 name = "typeface"
-version = "0.4.2"
+version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e1fdbc53aae2bf36c48f1bc36d73a62b84091b6535b08e4e15bca876ce5e8050"
+checksum = "191ea6762cbcd705fbed8f58573fd6c654453ff3da60adb293d9f255bc92af8e"
 
 [[package]]
 name = "typenum"
