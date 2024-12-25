@@ -175,24 +175,23 @@ pub fn analyze_gsub(
                                 }
                                 ChainedContext::Format3(ctx) => {
                                     // println!("??? {:?}\n", context);
-                                    // BUG 不知为何有这种规则导致匹配贼多
+                                    // ! BUG 不知为何有这种规则导致匹配贼多
                                     // coverages 是触发的glyph
                                     // forward_coverages 和 backward_coverages 是左右匹配的 glyph
                                     // 反正所有的字形都是相关的，合并到一块
                                     let mut result: Vec<u16> = vec![];
-                                    collect_glyph_id_from_format_1_and_2(
-                                        &ctx.coverages,
-                                        &mut result,
-                                    );
-                                    collect_glyph_id_from_format_1_and_2(
-                                        &ctx.forward_coverages,
-                                        &mut result,
-                                    );
-                                    collect_glyph_id_from_format_1_and_2(
-                                        &ctx.backward_coverages,
-                                        &mut result,
-                                    );
-                                    // vec![result]
+                                    // collect_glyph_id_from_format_1_and_2(
+                                    //     &ctx.coverages,
+                                    //     &mut result,
+                                    // );
+                                    // collect_glyph_id_from_format_1_and_2(
+                                    //     &ctx.forward_coverages,
+                                    //     &mut result,
+                                    // );
+                                    // collect_glyph_id_from_format_1_and_2(
+                                    //     &ctx.backward_coverages,
+                                    //     &mut result,
+                                    // );
                                     // println!("||| {:?}\n", result);
                                     vec![result]
                                 }
