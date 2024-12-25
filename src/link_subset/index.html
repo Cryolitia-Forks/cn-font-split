@@ -387,15 +387,14 @@
     <!-- 每个包的数据 -->
     <template id="pkg-list">
         <van-cell-group inset title="字体分包详情">
-            <van-collapse v-model="activeNames" ref="collapse">
-                <van-collapse-item
-                    v-for="(pkg) in reporter.subsetDetail??[]"
-                    :title="pkg.hash"
-                    :name="pkg.hash"
-                >
-                    <span> {{String.fromCodePoint(...pkg.chars)}} </span>
-                </van-collapse-item>
-            </van-collapse>
+            <div
+                v-for="(pkg) in reporter.subsetDetail??[]"
+                :title="pkg.hash"
+                :name="pkg.hash"
+            >
+                <div>{{pkg.hash}}</div>
+                <span> {{String.fromCodePoint(...pkg.chars)}} </span>
+            </div>
         </van-cell-group>
     </template>
     <script>
@@ -410,7 +409,7 @@
                 };
             },
             mounted() {
-                this.$refs.collapse.toggleAll(true);
+                // this.$refs.collapse.toggleAll(true);
             },
         });
     </script>
