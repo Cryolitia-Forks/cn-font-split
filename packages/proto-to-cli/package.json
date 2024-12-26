@@ -12,6 +12,8 @@
         "access": "public"
     },
     "scripts": {
+        "test:ts": "./dist/cli.js -i ../../crates/proto/src/index.proto -m InputTemplate -o ./dist/gen/proto.ts",
+        "test:rust": "./dist/cli.js -i ../../crates/proto/src/index.proto -m InputTemplate -o ./dist/gen/proto.rs -t clap",
         "prepublish": "pnpm vite build"
     },
     "keywords": [
