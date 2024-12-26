@@ -37,6 +37,16 @@
                 color: gray;
                 margin: 1rem;
             }
+            .scroller {
+                height: 100%;
+            }
+
+            .user {
+                height: 32%;
+                padding: 0 12px;
+                display: flex;
+                align-items: center;
+            }
         </style>
     </head>
     <body>
@@ -386,18 +396,35 @@
 
     <!-- 每个包的数据 -->
     <template id="pkg-list">
+        <van-cell-group inset>
+            <van-field
+                v-model="search"
+                label="搜索"
+                placeholder="请输入关键字"
+            ></van-field>
+        </van-cell-group>
+
         <van-cell-group inset title="字体分包详情">
-            <div
-                v-for="(pkg) in reporter.subsetDetail??[]"
-                :title="pkg.hash"
-                :name="pkg.hash"
+            <v-list
+                ref="list"
+                :items="items"
+                :first-render="10"
+                style="height: 80vh"
             >
-                <div>{{pkg.hash}}</div>
-                <span> {{String.fromCodePoint(...pkg.chars)}} </span>
-            </div>
+                <template #default="{ item, index }">
+                    <div style="padding: 0 1rem">
+                        <h2 :style="{ width: item.width }">
+                            ITEM: {{ index }} - {{ item.hash }}
+                        </h2>
+                        <span> {{String.fromCodePoint(...item.chars)}} </span>
+                    </div>
+                </template>
+            </v-list>
         </van-cell-group>
     </template>
+    <script src="https://unpkg.com/@virtual-list/vue/dist/v3/index.iife.js"></script>
     <script>
+        app.component('v-list', virtualListVue);
         app.component('pkg-list', {
             template: '#pkg-list',
             props: {
@@ -406,10 +433,18 @@
             data() {
                 return {
                     activeNames: [],
+                    search: '',
                 };
             },
-            mounted() {
-                // this.$refs.collapse.toggleAll(true);
+            mounted() {},
+            computed: {
+                items() {
+                    const list = this.reporter.subsetDetail ?? [];
+                    if (this.search) {
+                        return list.filter((i) => i.hash.includes(this.search));
+                    }
+                    return list;
+                },
             },
         });
     </script>

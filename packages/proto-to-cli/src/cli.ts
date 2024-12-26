@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { genCommanderCode } from './adapter/genCommanderCode.js';
 import { outputFile } from 'fs-extra';
+import { genClapCode } from './adapter/genClapCode.js';
 const program = new Command();
 program
     .requiredOption('-i, --input <path>', 'proto file path')
@@ -14,6 +15,7 @@ const data = program.parse(process.argv).opts();
 export type Adapter = (filePath: string, messageName: string) => string;
 const adapters: Record<string, Adapter> = {
     commander: genCommanderCode,
+    clap: genClapCode,
 };
 if (!adapters[data.target])
     throw new Error(`${data.target} target not support`);
