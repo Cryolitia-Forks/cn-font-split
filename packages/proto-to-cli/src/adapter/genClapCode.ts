@@ -79,7 +79,7 @@ pub struct ${messageName} {
                     .map((i) => '\n        ' + i)
                     .join(',')}
     )]
-    ${capitalizeAfterDot(longName)}: ${
+    pub ${capitalizeAfterDot(longName)}: ${
         isOption ? `Option<${placeholder}>` : placeholder
     },\n`,
             ];
