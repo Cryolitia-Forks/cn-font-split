@@ -1,13 +1,8 @@
 name: Rust Cross Build
 on:
-    workflow_dispatch:
-        inputs:
-            version:
-                description: 'Version number'
-                required: true
-                default: '7.0.0-beta-6'
-env:
-    CARGO_PKG_VERSION: ${{ github.event.inputs.version }}
+  push:
+    branches:
+        - 'test'
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
@@ -210,38 +205,3 @@ jobs:
                   name: bindings-wasm32-wasip1
                   path: ./target/wasm32-wasip1/release/libffi-wasm32-wasip1.wasm
                   if-no-files-found: error
-    create-release:
-        runs-on: ubuntu-latest
-        needs: [build-wasm, cross-build]
-        steps:
-            - name: Create Release
-              uses: actions/create-release@v1
-              id: create_release
-              with:
-                  tag_name: ${{ github.event.inputs.version }}
-                  release_name: Release ${{ github.event.inputs.version }}
-                  body: |
-                      Release ${{ github.event.inputs.version }}
-                  draft: false
-                  prerelease: false
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-            - uses: actions/download-artifact@v4
-              with:
-                  path: ./artifacts
-                  merge-multiple: true
-
-            - name: Display structure of downloaded files
-              run: ls -R ./artifacts
-
-            - name: prepare upload
-              run: |
-                  mkdir release
-
-            - name: Release Upload Assets
-              uses: jaywcjlove/github-action-upload-assets@main
-              with:
-                  tag: ${{github.event.inputs.version}}
-                  asset-path: '["./artifacts/*"]'
-                  token: ${{ secrets.GITHUB_TOKEN }}
